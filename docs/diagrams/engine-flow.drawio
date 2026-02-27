@@ -1,0 +1,145 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.2 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36" version="29.5.2">
+  <diagram id="engine-main" name="Engine Flow">
+    <mxGraphModel dx="1216" dy="905" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="cTitle" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#09555B;strokeColor=#BAC8D3;fontStyle=1;labelBackgroundColor=none;fontColor=#EEEEEE;" value="Circular Endpoint Flow" vertex="1">
+          <mxGeometry height="40" width="520" x="40" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="c1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#09555B;strokeColor=#BAC8D3;labelBackgroundColor=none;fontColor=#EEEEEE;" value="POST /api/eclipse/circular&#xa;{altitude_km, beta_deg}" vertex="1">
+          <mxGeometry height="60" width="430" x="80" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="c2" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#09555B;strokeColor=#BAC8D3;labelBackgroundColor=none;fontColor=#EEEEEE;" value="Validate inputs&#xa;altitude &gt; 0, beta in [-90, 90]" vertex="1">
+          <mxGeometry height="110" width="270" x="160" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="cErr" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#09555B;strokeColor=#BAC8D3;labelBackgroundColor=none;fontColor=#EEEEEE;" value="HTTP 400" vertex="1">
+          <mxGeometry height="50" width="110" x="20" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="c3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#09555B;strokeColor=#BAC8D3;labelBackgroundColor=none;fontColor=#EEEEEE;" value="r = Re + altitude&#xa;compute_orbit_radius_km()" vertex="1">
+          <mxGeometry height="60" width="430" x="80" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="c4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#09555B;strokeColor=#BAC8D3;labelBackgroundColor=none;fontColor=#EEEEEE;" value="n = sqrt(mu / r^3)&#xa;compute_mean_motion()" vertex="1">
+          <mxGeometry height="60" width="430" x="80" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="c5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#09555B;strokeColor=#BAC8D3;labelBackgroundColor=none;fontColor=#EEEEEE;" value="T = 2*pi / n&#xa;compute_orbital_period_sec()" vertex="1">
+          <mxGeometry height="60" width="430" x="80" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="c6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#09555B;strokeColor=#BAC8D3;labelBackgroundColor=none;fontColor=#EEEEEE;" value="beta_crit = asin(Re/r)&#xa;compute_beta_critical_deg()" vertex="1">
+          <mxGeometry height="60" width="430" x="80" y="610" as="geometry" />
+        </mxCell>
+        <mxCell id="c7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#09555B;strokeColor=#BAC8D3;labelBackgroundColor=none;fontColor=#EEEEEE;" value="compute_eclipse_duration_sec()&#xa;if |beta| &gt;= beta_crit -&gt; 0&#xa;else theta_e from geometry; eclipse = 2*theta_e/n" vertex="1">
+          <mxGeometry height="80" width="430" x="80" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="c8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#09555B;strokeColor=#BAC8D3;labelBackgroundColor=none;fontColor=#EEEEEE;" value="Return CircularEclipseResponse" vertex="1">
+          <mxGeometry height="60" width="430" x="80" y="810" as="geometry" />
+        </mxCell>
+        <mxCell id="yTitle" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#09555B;strokeColor=#BAC8D3;fontStyle=1;labelBackgroundColor=none;fontColor=#EEEEEE;" value="Yearly Endpoint Flow" vertex="1">
+          <mxGeometry height="40" width="760" x="640" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="y1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#09555B;strokeColor=#BAC8D3;labelBackgroundColor=none;fontColor=#EEEEEE;" value="POST /api/eclipse/yearly&#xa;{altitude, inclination, raan, start_utc, days, step_hours}" vertex="1">
+          <mxGeometry height="60" width="660" x="690" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="y2" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#09555B;strokeColor=#BAC8D3;labelBackgroundColor=none;fontColor=#EEEEEE;" value="Validate inputs + parse start_utc" vertex="1">
+          <mxGeometry height="110" width="240" x="900" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="yErr" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#09555B;strokeColor=#BAC8D3;labelBackgroundColor=none;fontColor=#EEEEEE;" value="HTTP 400" vertex="1">
+          <mxGeometry height="50" width="110" x="760" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="y3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#09555B;strokeColor=#BAC8D3;labelBackgroundColor=none;fontColor=#EEEEEE;" value="Compute r, n, T, beta_crit&#xa;(eclipse.py)" vertex="1">
+          <mxGeometry height="60" width="660" x="690" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="y4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#09555B;strokeColor=#BAC8D3;labelBackgroundColor=none;fontColor=#EEEEEE;" value="h_hat = compute_orbit_normal_eci(inclination, raan)&#xa;(sun.py)" vertex="1">
+          <mxGeometry height="60" width="660" x="690" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="y5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#09555B;strokeColor=#BAC8D3;labelBackgroundColor=none;fontColor=#EEEEEE;" value="Initialize loop&#xa;total_steps = days*24/step_hours&#xa;current_time = start_dt" vertex="1">
+          <mxGeometry height="70" width="660" x="690" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="yLoop" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#09555B;strokeColor=#BAC8D3;labelBackgroundColor=none;fontColor=#EEEEEE;" value="For each timestep" vertex="1">
+          <mxGeometry height="90" width="180" x="930" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="y6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#09555B;strokeColor=#BAC8D3;labelBackgroundColor=none;fontColor=#EEEEEE;" value="sun_hat = compute_sun_vector_eci(current_time)&#xa;datetime -&gt; Julian Day -&gt; J2000 centuries -&gt; ECI" vertex="1">
+          <mxGeometry height="70" width="660" x="690" y="740" as="geometry" />
+        </mxCell>
+        <mxCell id="y7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#09555B;strokeColor=#BAC8D3;labelBackgroundColor=none;fontColor=#EEEEEE;" value="beta = asin(dot(sun_hat, h_hat))&#xa;compute_beta_angle_deg()" vertex="1">
+          <mxGeometry height="60" width="660" x="690" y="840" as="geometry" />
+        </mxCell>
+        <mxCell id="y8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#09555B;strokeColor=#BAC8D3;labelBackgroundColor=none;fontColor=#EEEEEE;" value="eclipse = compute_eclipse_duration_sec(r, beta)" vertex="1">
+          <mxGeometry height="60" width="660" x="690" y="930" as="geometry" />
+        </mxCell>
+        <mxCell id="y9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#09555B;strokeColor=#BAC8D3;labelBackgroundColor=none;fontColor=#EEEEEE;" value="Append sample&#xa;{t_utc, beta_deg, eclipse_min}" vertex="1">
+          <mxGeometry height="60" width="660" x="690" y="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="y10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#09555B;strokeColor=#BAC8D3;labelBackgroundColor=none;fontColor=#EEEEEE;" value="Update summary stats&#xa;max/min eclipse, days_with_eclipse" vertex="1">
+          <mxGeometry height="60" width="660" x="690" y="1110" as="geometry" />
+        </mxCell>
+        <mxCell id="y11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#09555B;strokeColor=#BAC8D3;labelBackgroundColor=none;fontColor=#EEEEEE;" value="Build EclipseSummary + return YearlyEclipseResponse" vertex="1">
+          <mxGeometry height="60" width="660" x="690" y="1230" as="geometry" />
+        </mxCell>
+        <mxCell id="ce1" edge="1" parent="1" source="c1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;labelBackgroundColor=none;strokeColor=#0B4D6A;fontColor=default;" target="c2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ce2" edge="1" parent="1" source="c2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;labelBackgroundColor=none;strokeColor=#0B4D6A;fontColor=default;" target="cErr" value="invalid">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ce3" edge="1" parent="1" source="c2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;labelBackgroundColor=none;strokeColor=#0B4D6A;fontColor=default;" target="c3" value="valid">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ce4" edge="1" parent="1" source="c3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;labelBackgroundColor=none;strokeColor=#0B4D6A;fontColor=default;" target="c4" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ce5" edge="1" parent="1" source="c4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;labelBackgroundColor=none;strokeColor=#0B4D6A;fontColor=default;" target="c5" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ce6" edge="1" parent="1" source="c5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;labelBackgroundColor=none;strokeColor=#0B4D6A;fontColor=default;" target="c6" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ce7" edge="1" parent="1" source="c6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;labelBackgroundColor=none;strokeColor=#0B4D6A;fontColor=default;" target="c7" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ce8" edge="1" parent="1" source="c7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;labelBackgroundColor=none;strokeColor=#0B4D6A;fontColor=default;" target="c8" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ye1" edge="1" parent="1" source="y1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;labelBackgroundColor=none;strokeColor=#0B4D6A;fontColor=default;" target="y2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ye2" edge="1" parent="1" source="y2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;labelBackgroundColor=none;strokeColor=#0B4D6A;fontColor=default;" target="yErr" value="invalid">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ye3" edge="1" parent="1" source="y2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;labelBackgroundColor=none;strokeColor=#0B4D6A;fontColor=default;" target="y3" value="valid">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ye4" edge="1" parent="1" source="y3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;labelBackgroundColor=none;strokeColor=#0B4D6A;fontColor=default;" target="y4" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ye5" edge="1" parent="1" source="y4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;labelBackgroundColor=none;strokeColor=#0B4D6A;fontColor=default;" target="y5" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ye6" edge="1" parent="1" source="y5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;labelBackgroundColor=none;strokeColor=#0B4D6A;fontColor=default;" target="yLoop" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ye7" edge="1" parent="1" source="yLoop" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;labelBackgroundColor=none;strokeColor=#0B4D6A;fontColor=default;" target="y6" value="iterate">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ye8" edge="1" parent="1" source="y6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;labelBackgroundColor=none;strokeColor=#0B4D6A;fontColor=default;" target="y7" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ye9" edge="1" parent="1" source="y7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;labelBackgroundColor=none;strokeColor=#0B4D6A;fontColor=default;" target="y8" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ye10" edge="1" parent="1" source="y8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;labelBackgroundColor=none;strokeColor=#0B4D6A;fontColor=default;" target="y9" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ye11" edge="1" parent="1" source="y9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;labelBackgroundColor=none;strokeColor=#0B4D6A;fontColor=default;" target="y10" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ye12" edge="1" parent="1" source="y10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=block;endFill=1;labelBackgroundColor=none;strokeColor=#0B4D6A;fontColor=default;" target="yLoop" value="next timestep">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ye13" edge="1" parent="1" source="yLoop" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;labelBackgroundColor=none;strokeColor=#0B4D6A;fontColor=default;" target="y11" value="done">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,97 @@
+<mxfile host="app.diagrams.net" modified="2026-02-27T00:00:00.000Z" agent="codex" version="22.1.0">
+  <diagram id="backend-main" name="Backend">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="entry" value="Entry Point" style="swimlane;fontStyle=1;horizontal=0;startSize=30;rounded=1;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="260" height="220" as="geometry"/>
+        </mxCell>
+        <mxCell id="mainpy" value="main.py&#xa;FastAPI App" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="entry">
+          <mxGeometry x="40" y="70" width="180" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="cors" value="CORSMiddleware&#xa;localhost:5173" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="entry">
+          <mxGeometry x="40" y="155" width="180" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="apiLayer" value="API Layer (api.py)" style="swimlane;fontStyle=1;horizontal=0;startSize=30;rounded=1;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="350" y="40" width="390" height="360" as="geometry"/>
+        </mxCell>
+        <mxCell id="router" value="APIRouter&#xa;prefix=/api/eclipse" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="apiLayer">
+          <mxGeometry x="80" y="60" width="230" height="65" as="geometry"/>
+        </mxCell>
+        <mxCell id="circularEP" value="POST /circular&#xa;compute_circular_eclipse()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="apiLayer">
+          <mxGeometry x="40" y="160" width="300" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="yearlyEP" value="POST /yearly&#xa;compute_yearly_eclipse()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="apiLayer">
+          <mxGeometry x="40" y="245" width="300" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="models" value="Models (models.py)" style="swimlane;fontStyle=1;horizontal=0;startSize=30;rounded=1;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="790" y="40" width="500" height="360" as="geometry"/>
+        </mxCell>
+        <mxCell id="circReq" value="CircularEclipseRequest&#xa;altitude_km, beta_deg" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="models">
+          <mxGeometry x="30" y="60" width="210" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="circResp" value="CircularEclipseResponse&#xa;radius, period, beta_crit, eclipse" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="models">
+          <mxGeometry x="260" y="60" width="210" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="yearReq" value="YearlyEclipseRequest&#xa;alt, inc, raan, start, days, step" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="models">
+          <mxGeometry x="30" y="145" width="210" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="yearResp" value="YearlyEclipseResponse&#xa;params, samples[], summary" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="models">
+          <mxGeometry x="260" y="145" width="210" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="sample" value="EclipseSample&#xa;t_utc, beta_deg, eclipse_min" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="models">
+          <mxGeometry x="30" y="230" width="210" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="summary" value="EclipseSummary&#xa;max/min/days_with_eclipse" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="models">
+          <mxGeometry x="260" y="230" width="210" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="engine" value="Orbit Engine (app/orbit)" style="swimlane;fontStyle=1;horizontal=0;startSize=30;rounded=1;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="350" y="450" width="940" height="260" as="geometry"/>
+        </mxCell>
+        <mxCell id="eclipseMod" value="eclipse.py&#xa;orbital period + eclipse duration math" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f5e1;strokeColor=#82b366;" vertex="1" parent="engine">
+          <mxGeometry x="40" y="80" width="260" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="sunMod" value="sun.py&#xa;sun vector + orbit normal + beta angle" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f5e1;strokeColor=#82b366;" vertex="1" parent="engine">
+          <mxGeometry x="340" y="80" width="260" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="timeMod" value="time.py&#xa;ISO8601 + Julian Day utilities" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f5e1;strokeColor=#82b366;" vertex="1" parent="engine">
+          <mxGeometry x="640" y="80" width="260" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="b1" value="includes router" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="mainpy" target="router">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="b2" value="request validation" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="circularEP" target="circReq">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="b3" value="response model" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="circularEP" target="circResp">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="b4" value="request validation" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="yearlyEP" target="yearReq">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="b5" value="response model" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="yearlyEP" target="yearResp">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="b6" value="samples[]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=block;endFill=1;" edge="1" parent="1" source="yearResp" target="sample">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="b7" value="summary" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=block;endFill=1;" edge="1" parent="1" source="yearResp" target="summary">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="b8" value="compute radius/period/eclipse" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="circularEP" target="eclipseMod">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="b9" value="compute series eclipse" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="yearlyEP" target="eclipseMod">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="b10" value="compute h_hat + beta(t)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="yearlyEP" target="sunMod">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="b11" value="Julian day conversion" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="sunMod" target="timeMod">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
